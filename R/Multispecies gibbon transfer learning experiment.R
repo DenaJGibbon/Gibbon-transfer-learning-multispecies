@@ -93,7 +93,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              test.data=test.data.path,
                              unfreeze = TRUE,
                              epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
+                              early.stop = "yes",
                              output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
@@ -106,7 +106,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              test.data=test.data.path,
                              unfreeze = TRUE,
                              epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
+                            early.stop = "yes",
                              output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
@@ -119,7 +119,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              test.data=test.data.path,
                              unfreeze = TRUE,
                              epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
+                            early.stop = "yes",
                              output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
@@ -132,7 +132,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              test.data=test.data.path,
                              unfreeze = TRUE,
                              epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
+                            early.stop = "yes",
                              output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
@@ -145,7 +145,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              test.data=test.data.path,
                              unfreeze = TRUE,
                              epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
+                            early.stop = "yes",
                              output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
@@ -157,9 +157,8 @@ PerformanceOutput <- gibbonNetR::get_best_performance(performancetables.dir=perf
                                                       model.type = "binary")
 
 PerformanceOutput$f1_plot
-PerformanceOutput$pr_plot
-PerformanceOutput$FPRTPR_plot
 PerformanceOutput$best_f1$F1
+
 
 # Malaysia Binary ---------------------------------------------------------
 
@@ -167,7 +166,6 @@ PerformanceOutput$best_f1$F1
 input.data.path <-  'data/trainingimages/imagesmalaysia/'
 
 # Location of spectrogram images for testing
-test.data.path <- "data/testimages/imagesmaliau/test/"
 test.data.path <- "data/trainingimages/imagesmalaysia/test/"
 
 # Training data folder short
@@ -187,7 +185,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              test.data=test.data.path,
                              unfreeze = TRUE,
                              epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
+                            early.stop = "yes",
                              output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
@@ -201,7 +199,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              test.data=test.data.path,
                              unfreeze = TRUE,
                              epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
+                            early.stop = "yes",
                              output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
@@ -214,7 +212,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              test.data=test.data.path,
                              unfreeze = TRUE,
                              epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
+                            early.stop = "yes",
                              output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
@@ -227,7 +225,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              test.data=test.data.path,
                              unfreeze = TRUE,
                              epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
+                            early.stop = "yes",
                              output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
@@ -240,7 +238,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              test.data=test.data.path,
                              unfreeze = TRUE,
                              epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
+                            early.stop = "yes",
                              output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
@@ -253,7 +251,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              test.data=test.data.path,
                              unfreeze = TRUE,
                              epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
+                            early.stop = "yes",
                              output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
@@ -266,8 +264,6 @@ PerformanceOutput <- gibbonNetR::get_best_performance(performancetables.dir=perf
                                                       model.type = "binary")
 
 PerformanceOutput$f1_plot
-PerformanceOutput$pr_plot
-PerformanceOutput$FPRTPR_plot
 PerformanceOutput$best_f1$F1
 
 
@@ -300,7 +296,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             unfreeze = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
-                            early.stop = "yes",
+                           early.stop = "yes",
                             output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
@@ -312,7 +308,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             unfreeze = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
-                            early.stop = "yes",
+                           early.stop = "yes",
                             output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
@@ -324,7 +320,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             unfreeze = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
-                            early.stop = "yes",
+                           early.stop = "yes",
                             output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
@@ -336,7 +332,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             unfreeze = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
-                            early.stop = "yes",
+                           early.stop = "yes",
                             output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
@@ -348,7 +344,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             unfreeze = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
-                            early.stop = "yes",
+                           early.stop = "yes",
                             output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
@@ -360,7 +356,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             unfreeze = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
-                            early.stop = "yes",
+                           early.stop = "yes",
                             output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
@@ -380,13 +376,14 @@ PerformanceOutputMulti <- gibbonNetR::get_best_performance(performancetables.dir
                                                            model.type = "multi")
 
 PerformanceOutputMulti$f1_plot
+
 PerformanceOutputMulti$best_f1$F1
 
 
 # Top F1 for each species
 # Crested gibbons: multi: 0.926; binary: 0.977 AlexNet and ResNet50
 
-# GreyGibbons: multi: 0.980 resnet18; binary: 0.965 VGG16 0.4
+# GreyGibbons: multi: 985 resnet50; binary: 0.965 VGG16 0.4
 
 
 

@@ -4,7 +4,7 @@ ListofDirectory <- list.files("/Users/denaclink/Library/CloudStorage/Box-Box/Cam
 class_names <- c("CrestedGibbons", "GreyGibbons", "Noise")
 ModelPath <- 'model_output/top_models/combined_multi/_imagesmulti_20_vgg16_model.pt'
 
-# Example
+# Multi-class example
 deploy_CNN_multi(
   clip_duration = 12,
   max_freq_khz = 3,
@@ -12,7 +12,7 @@ deploy_CNN_multi(
   output_folder = '/Volumes/Clink Data Backup/KSWSPilotArray/Images/',
   output_folder_selections = '/Volumes/Clink Data Backup/KSWSPilotArray/Selections/',
   output_folder_wav = '/Volumes/Clink Data Backup/KSWSPilotArray/Wavs/',
-  detect_pattern= c( '_050','_060','_070','_080','_090','_100'),
+  detect_pattern= c('_070','_080','_090','_100'),
   top_model_path = ModelPath,
   path_to_files = ListofDirectory[2],
   class_names = class_names,
@@ -22,3 +22,28 @@ deploy_CNN_multi(
   save_wav = TRUE,
   threshold = .5
 )
+
+
+TopModelBinary <- 'model_output/top_models/malaysia_binary/_imagesmalaysia_5_resnet18_model.pt'
+
+ListofDirectoryBinary <- list.files('/Volumes/Dena Clink Toshiba 3 TB/SWIFT_sparse_array_Danum/',
+                                    full.names = T)
+
+# Binary example
+deploy_CNN_binary(
+  clip_duration = 12,
+  max_freq_khz = 2,
+  architecture='resnet', # Change manually
+  output_folder = '/Volumes/Dena Clink Toshiba 3 TB/gibbonNetRDanum/Images/',
+  output_folder_selections = '/Volumes/Dena Clink Toshiba 3 TB/gibbonNetRDanum/Selections/',
+  output_folder_wav = '/Volumes/Dena Clink Toshiba 3 TB/gibbonNetRDanum/Wavs/',
+  detect_pattern=c('_060','_080'),# c('_050','_060','_070','_080','_090','_100'),
+  top_model_path = TopModelBinary,
+  path_to_files = '/Volumes/Dena Clink Toshiba 3 TB/SWIFT_sparse_array_Danum/S10_000/S10_2018-04-24/test',#ListofDirectoryBinary[2],
+  positive.class = 'Gibbons',
+  negative.class = 'Noise',
+  save_wav = TRUE,
+  threshold = .5
+)
+
+

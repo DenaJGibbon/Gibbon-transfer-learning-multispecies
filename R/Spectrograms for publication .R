@@ -2,7 +2,7 @@
 library(dplyr)
 
 # Location of spectrogram images for training
-input.data.path <-  'data/imagesmalaysia/'
+input.data.path <-  '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/imagesforpub/'
 
 # Create a dataset of images:
 # - The images are sourced from the 'train' subdirectory within the specified path `input.data.path`.
@@ -11,7 +11,7 @@ input.data.path <-  'data/imagesmalaysia/'
 #     2. They are resized to 224x224 pixels.
 #     3. Their pixel values are normalized.
 train_ds <- image_folder_dataset(
-  file.path(input.data.path,'train' ),   # Path to the image directory
+  file.path(input.data.path),   # Path to the image directory
   transform = . %>%
     torchvision::transform_to_tensor() %>%
     torchvision::transform_resize(size = c(224, 224)) %>%
@@ -25,14 +25,15 @@ train_ds <- image_folder_dataset(
 # Create a dataloader from the dataset:
 # - This helps in efficiently loading and batching the data.
 # - The batch size is set to 24, with shuffling enabled and the last incomplete batch is dropped.
-train_dl <- dataloader(train_ds, batch_size = 24, shuffle = TRUE, drop_last = TRUE)
+train_dl <- dataloader(train_ds, batch_size = 9, shuffle = F, drop_last = TRUE)
 
 # Extract the next batch from the dataloader
 batch <- train_dl$.iter()$.next()
 
 # Extract the labels for the batch and determine class names
 classes <- batch[[2]]
-class_names <- ifelse(batch$y, 'Noise','Gibbons')
+class_names <- list.files(input.data.path,recursive = T)
+class_names <- str_split_fixed(class_names,pattern = '/',n=2)[,1]
 
 # Convert the batch tensor of images to an array and process them:
 # - The image tensor is permuted to change the dimension order.
@@ -47,7 +48,7 @@ images[images > 255] <- 255
 images[images < 0] <- 0
 
 # Set the plotting parameters for a 4x6 grid
-par(mfcol = c(4,6), mar = rep(1, 4))
+par(mfcol = c(3,3), mar = rep(1, 4))
 
 # Visualize the images:
 # - Use `purrr` functions to handle arrays.
