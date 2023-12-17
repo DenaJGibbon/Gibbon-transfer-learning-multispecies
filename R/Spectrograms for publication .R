@@ -25,7 +25,7 @@ train_ds <- image_folder_dataset(
 # Create a dataloader from the dataset:
 # - This helps in efficiently loading and batching the data.
 # - The batch size is set to 24, with shuffling enabled and the last incomplete batch is dropped.
-train_dl <- dataloader(train_ds, batch_size = 9, shuffle = F, drop_last = TRUE)
+train_dl <- dataloader(train_ds, batch_size = 12, shuffle = F, drop_last = TRUE)
 
 # Extract the next batch from the dataloader
 batch <- train_dl$.iter()$.next()
@@ -48,7 +48,7 @@ images[images > 255] <- 255
 images[images < 0] <- 0
 
 # Set the plotting parameters for a 4x6 grid
-par(mfcol = c(3,3), mar = rep(1, 4))
+par(mfcol = c(3,4), mar = rep(1, 4))
 
 # Visualize the images:
 # - Use `purrr` functions to handle arrays.
