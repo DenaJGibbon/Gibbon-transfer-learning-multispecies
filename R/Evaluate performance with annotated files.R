@@ -30,15 +30,15 @@ deploy_CNN_multi(
 
 TopModelBinary <- 'model_output/top_models/malaysia_binary/_imagesmalaysia_5_resnet18_model.pt'
 
-DanumSoundFiles <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/SoundFiles'
+DanumSoundFiles <- '/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/SoundFiles'
 
 deploy_CNN_binary(
   clip_duration = 12,
   max_freq_khz = 2,
   architecture='resnet', # Change manually
-  output_folder = 'Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/Images/',
-  output_folder_selections = 'Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/Selections/',
-  output_folder_wav = 'Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/Wavs/',
+  output_folder = '/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutput/Images/',
+  output_folder_selections = '/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutput/Selections/',
+  output_folder_wav = '/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutput/Wavs/',
   detect_pattern=NA,
   top_model_path = TopModelBinary,
   path_to_files = DanumSoundFiles,
@@ -47,4 +47,5 @@ deploy_CNN_binary(
   save_wav = TRUE,
   threshold = .5
 )
+
 
