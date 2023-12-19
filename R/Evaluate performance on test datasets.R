@@ -24,7 +24,7 @@ PerformanceOutPutTrained$pr_plot
 trained_models_dir <- 'model_output/top_models/malaysia_binary/'
 
 #image_data_dir <- '/Volumes/DJC 1TB/VocalIndividualityClips/RandomSelectionImages/'
-image_data_dir <- 'data/testimages/imagesmaliau/test/'
+image_data_dir <- '/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/TestData/MaliauImages/test/'
 
 evaluate_trainedmodel_performance(trained_models_dir=trained_models_dir,
                                   image_data_dir=image_data_dir,
@@ -43,7 +43,7 @@ PerformanceOutPutTrained$pr_plot
 trained_models_dir <- "model_output/top_models/combined_multi/"
 
 #image_data_dir <- '/Volumes/DJC 1TB/VocalIndividualityClips/RandomSelectionImages/'
-image_data_dir <- "data/testimages/images_combined/test"
+image_data_dir <- "/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/TestData/MaliauVietnamCombined/test"
 
 trainingfolder <- 'imagesmulti'
 

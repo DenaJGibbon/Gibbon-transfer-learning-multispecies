@@ -4,7 +4,7 @@ ListofDirectory <- list.files("/Users/denaclink/Library/CloudStorage/Box-Box/Cam
 class_names <- c("CrestedGibbons", "GreyGibbons", "Noise")
 ModelPath <- 'model_output/top_models/combined_multi/_imagesmulti_20_vgg16_model.pt'
 
-for(c in 4:length(ListofDirectory)){
+for(c in rev(5:length(ListofDirectory))){
   print(ListofDirectory[c])
 # Multi-class example
 deploy_CNN_multi(
@@ -26,9 +26,6 @@ deploy_CNN_multi(
 )
 }
 
-TempFile <- list.files(ListofDirectory[2],full.names = T,recursive = T)
-
-TempWav <- readWave( path_to_files[ str_detect(TempFile,c(c('_100')))][14])
 
 
 # Deploy binary model -----------------------------------------------------
