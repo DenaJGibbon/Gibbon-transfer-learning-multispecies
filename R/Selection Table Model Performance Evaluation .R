@@ -11,11 +11,11 @@ library(data.table) # For sorting the detections
 # KSWS Performance --------------------------------------------------------
 
 # Get a list of TopModel result files
-TopModelresults <- list.files('/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/WideArrayEvaluation/KSWSEvaluation/gibbonNetRoutput/Selections/',
+TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/KSWSEvaluation/gibbonNetRoutput/Selections/',
                              full.names = TRUE)
 
 # Get a list of annotation selection table files
-TestDataSet <- list.files('/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/WideArrayEvaluation/KSWSEvaluation/AnnotatedFiles',
+TestDataSet <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/KSWSEvaluation/AnnotatedFiles',
                           full.names = TRUE)
 
 # Create an empty data frame to store TopModel detection results
@@ -135,11 +135,11 @@ ggline(data = BestF1data.frameCrestedGibbon, x = 'thresholds', y = 'F1caret')
 
 # Danum Array Evaluation --------------------------------------------------
 # Get a list of TopModel result files
-TopModelresults <- list.files('/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutput/Selections/',
+TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutput/Selections/',
                               full.names = TRUE)
 
 # Get a list of annotation selection table files
-TestDataSet <- list.files('/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/AnnotatedFiles',
+TestDataSet <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/AnnotatedFiles',
                           full.names = TRUE)
 
 # Create an empty data frame to store TopModel detection results
@@ -256,5 +256,123 @@ BestF1data.frameCrestedGibbon
 BestF1data.frameGreyGibbon
 
 
+# Maliau Data -------------------------------------------------------------
+
+MaliauDetections <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/TestData/MaliauBasin/gibbonNetRoutput/Selections',
+                               full.names = T)
+
+MaliauAnnotations <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/TestData/MaliauBasin/AnnotatedFiles',
+                                full.names = T)
+
+# Create an empty data frame to store TopModel detection results
+TopModelDetectionDF <- data.frame()
+
+# Loop through each TopModel result file
+for (a in 1:length(MaliauDetections)) {
+  
+  # Read the TopModel result table into a data frame
+  TempTopModelTable <- read.delim2(MaliauDetections[a])
+  
+  # Check if the data frame has rows
+  if (nrow(TempTopModelTable) > 0) {
+    
+    # Extract the short name of the TopModel result file
+    ShortName <- basename(MaliauDetections[a])
+    ShortName <- str_split_fixed(ShortName, pattern = 'Gibbons-__', n = 2)[, 2]
+    ShortName <- str_split_fixed(ShortName, pattern = 'TopModel', n = 2)[, 1]
+    ShortName <- str_split_fixed(ShortName, pattern = '.wav', n = 2)[, 1]
+    
+    # Find the corresponding annotation selection table
+    testDataIndex <- which(str_detect(MaliauAnnotations, ShortName))
+    TestDataTable <- read.delim2(MaliauAnnotations[testDataIndex])
+    TestDataTable <- subset(TestDataTable,Call.type=='female.gibbon')
+    # Subset the annotation selection table to include only "LGFG" Call.Type
+    #TestDataTable <- subset(TestDataTable, Call.Type == "LGFG")
+    
+    # Round Begin.Time..s. and End.Time..s. columns to numeric
+    TestDataTable$Begin.Time..s. <- round(as.numeric(TestDataTable$Begin.Time..s.))
+    TestDataTable$End.Time..s. <- round(as.numeric(TestDataTable$End.Time..s.))
+    
+    # Loop through each row in TempTopModelTable
+    for (c in 1:nrow(TempTopModelTable)) {
+      TempRow <- TempTopModelTable[c,]
+      
+      # Check if Begin.Time..s. is not NA
+      if (is.na(TempRow$Begin.Time..s.) == FALSE) {
+        # Convert Begin.Time..s. and End.Time..s. to numeric
+        TempRow$Begin.Time..s. <- as.numeric(TempRow$Begin.Time..s.)
+        TempRow$End.Time..s. <- as.numeric(TempRow$End.Time..s.)
+        
+        # Determine if the time of the detection is within the time range of an annotation
+        TimeBetween <- data.table::between(TempRow$Begin.Time..s.,
+                                           TestDataTable$Begin.Time..s.-4,
+                                           TestDataTable$End.Time..s.+4)
+        
+        # Extract the detection for which TimeBetween and TimeBetweenEnd are TRUE
+        
+        # For now focus only on start time
+        
+        TempDetection <- TestDataTable[  which(TimeBetween == TRUE), ]
+        
+        if (nrow(TempDetection) > 0) {
+          # Set Class based on the Call.Type in TempDetection
+          TempRow$Class <- 'MaliauGreyGibbons'
+        } else {
+          # Set Class to 'Noise' if no corresponding annotation is found
+          TempRow$Class <- 'Noise'
+          # Uncomment the line below if you want to modify the Confidence value
+          # TempRow$Confidence <- 1 - as.numeric(TempRow$Confidence)
+        }
+        
+        # Set TrainingData to the basename of TopModel results directory
+        #TempRow$TrainingData <- basename(MaliauDetections[a])
+        
+        # Append TempRow to TopModelDetectionDF
+        TopModelDetectionDF <- rbind.data.frame(TopModelDetectionDF, TempRow)
+      }
+    }
+  }
+}
 
 
+# Convert Class column to a factor variable
+TopModelDetectionDF$Class <- as.factor(TopModelDetectionDF$Class)
+
+# Display unique values in the Class column
+unique(TopModelDetectionDF$Class)
+
+# Define a vector of confidence thresholds
+thresholds <- c(.5, .75, .85, .9, .95)
+
+# Create an empty data frame to store results
+BestF1data.frameMaliauGreyGibbon <- data.frame()
+
+# Loop through each threshold value
+for(a in 1:length(thresholds)){
+  
+  # Filter the subset based on the confidence threshold
+  TopModelDetectionDF_single <-TopModelDetectionDF
+  
+  TopModelDetectionDF_single$PredictedClass <-  ifelse(TopModelDetectionDF_single$Probability  < thresholds[a], 'Noise','MaliauGreyGibbons')
+  
+  # Calculate confusion matrix using caret package
+  caretConf <- caret::confusionMatrix(
+    as.factor(TopModelDetectionDF_single$PredictedClass),
+    as.factor(TopModelDetectionDF_single$Class),
+    mode = 'everything')
+  
+  # Extract F1 score, Precision, and Recall from the confusion matrix
+  F1caret <- caretConf$byClass[7]
+  Precisioncaret <- caretConf$byClass[5]
+  Recallcaret <- caretConf$byClass[6]
+  
+  # Create a row for the result and add it to the BestF1data.frameMaliauGreyGibbon
+  #TrainingData <- training_data_type
+  TempF1Row <- cbind.data.frame(F1caret, Precisioncaret, Recallcaret)
+  TempF1Row$thresholds <- thresholds[a]
+  BestF1data.frameMaliauGreyGibbon <- rbind.data.frame(BestF1data.frameMaliauGreyGibbon, TempF1Row)
+}
+
+BestF1data.frameMaliauGreyGibbon
+BestF1data.frameCrestedGibbon
+BestF1data.frameGreyGibbon

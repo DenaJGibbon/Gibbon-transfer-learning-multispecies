@@ -1,10 +1,11 @@
+devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
 
 # Top model for Crested Gibbons -------------------------------------------
 
 trained_models_dir <- 'model_output/top_models/cambodia_binary'
 
 #image_data_dir <- '/Volumes/DJC 1TB/VocalIndividualityClips/RandomSelectionImages/'
-image_data_dir <- 'data/testimages/imagesvietnam/test/'
+image_data_dir <- '/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/TestData/VietnamImages/test/'
 
 evaluate_trainedmodel_performance(trained_models_dir=trained_models_dir,
                                   image_data_dir=image_data_dir,

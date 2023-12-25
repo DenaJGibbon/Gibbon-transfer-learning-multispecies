@@ -4,16 +4,16 @@ ListofDirectory <- list.files("/Users/denaclink/Library/CloudStorage/Box-Box/Cam
 class_names <- c("CrestedGibbons", "GreyGibbons", "Noise")
 ModelPath <- 'model_output/top_models/combined_multi/_imagesmulti_20_vgg16_model.pt'
 
-for(c in rev(5:length(ListofDirectory))){
-  print(ListofDirectory[c])
+for(c in rev(1:length(ListofDirectory))){
+   print(ListofDirectory[c])
 # Multi-class example
-deploy_CNN_multi(
+deploy_CNN_multi1(
   clip_duration = 12,
   max_freq_khz = 3,
   architecture='vgg16', # Change manually
-  output_folder = '/Volumes/Clink Data Backup/KSWSPilotArray/Images/',
-  output_folder_selections = '/Volumes/Clink Data Backup/KSWSPilotArray/Selections/',
-  output_folder_wav = '/Volumes/Clink Data Backup/KSWSPilotArray/Wavs/',
+  output_folder = '/Volumes/DJC Files/MultiSpeciesTransferLearning/DeploymentOutput/KSWS/Images/',
+  output_folder_selections = '/Volumes/DJC Files/MultiSpeciesTransferLearning/DeploymentOutput/KSWS/Selections/',
+  output_folder_wav = '/Volumes/DJC Files/MultiSpeciesTransferLearning/DeploymentOutput/KSWS/Wavs/',
   detect_pattern= c('_050','_060'), 
   top_model_path = ModelPath,
   path_to_files = ListofDirectory[c],
@@ -40,12 +40,12 @@ deploy_CNN_binary(
   clip_duration = 12,
   max_freq_khz = 2,
   architecture='resnet', # Change manually
-  output_folder = '/Volumes/Dena Clink Toshiba 3 TB/gibbonNetRDanum/Images12/',
-  output_folder_selections = '/Volumes/Dena Clink Toshiba 3 TB/gibbonNetRDanum/Selections12/',
-  output_folder_wav = '/Volumes/Dena Clink Toshiba 3 TB/gibbonNetRDanum/Wavs12/',
-  detect_pattern=c('_060','_070','_080','_090','_100'),
+  output_folder = '/Volumes/Dena Clink Toshiba 3 TB/gibbonNetRDanum/Images/',
+  output_folder_selections = '/Volumes/Dena Clink Toshiba 3 TB/gibbonNetRDanum/Selections/',
+  output_folder_wav = '/Volumes/Dena Clink Toshiba 3 TB/gibbonNetRDanum/Wavs/',
+  detect_pattern=c('_060'),
   top_model_path = TopModelBinary,
-  path_to_files = ListofDirectoryBinary[3],
+  path_to_files = ListofDirectoryBinary[4],
   positive.class = 'Gibbons',
   negative.class = 'Noise',
   save_wav = TRUE,

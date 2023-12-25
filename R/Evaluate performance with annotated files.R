@@ -48,4 +48,26 @@ deploy_CNN_binary(
   threshold = .5
 )
 
+# Binary example -------------------------------------------------------------------------
+
+TopModelBinary <- 'model_output/top_models/malaysia_binary/_imagesmalaysia_5_resnet18_model.pt'
+
+DanumSoundFiles <- '/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/TestData/MaliauBasin/SoundFiles/'
+
+deploy_CNN_binary(
+  clip_duration = 12,
+  max_freq_khz = 2,
+  architecture='resnet', # Change manually
+  output_folder = '/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/TestData/MaliauBasin/gibbonNetRoutput/Images/',
+  output_folder_selections = '/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/TestData/MaliauBasin/gibbonNetRoutput/Selections/',
+  output_folder_wav = '/Volumes/Clink Data Backup/MultiSpeciesTransferLearning/TestData/MaliauBasin/gibbonNetRoutput/Wavs/',
+  detect_pattern=NA,
+  top_model_path = TopModelBinary,
+  path_to_files = DanumSoundFiles,
+  positive.class = 'Gibbons',
+  negative.class = 'Noise',
+  save_wav = TRUE,
+  threshold = .5
+)
+
 
