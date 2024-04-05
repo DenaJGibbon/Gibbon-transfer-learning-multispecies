@@ -52,22 +52,22 @@ check_data_leakage <- function(rootDir) {
 }
 
 # Check for leakage in different datasets
-check_data_leakage('data/training_images_sorted/Jahoo copy')
+check_data_leakage('data/training_images_sorted/Jahoo')
 
 
 # Cambodia Binary Model Training ---------------------------------------------------------
 
 # Location of spectrogram images for training
-input.data.path <-  'data/training_images_sorted/Jahoo copy'
+input.data.path <-  'data/training_images_sorted/Jahoo'
 
 # Location of spectrogram images for testing
-test.data.path <- 'data/training_images_sorted/Jahoo copy/test/'
+test.data.path <- 'data/training_images_sorted/Jahoo/test/'
 
 # Training data folder short
 trainingfolder.short <- 'imagescambodia'
 
-# Whether to unfreeze the layers
-unfreeze.param <- TRUE # FALSE means the features are frozen; TRUE unfrozen
+# Whether to unfreeze.param the layers
+unfreeze.param.param <- TRUE # FALSE means the features are frozen; TRUE unfrozen
 
 # Number of epochs to include
 epoch.iterations <- c(1,2,3,4,5,20)
@@ -78,10 +78,10 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                            output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -92,10 +92,10 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                             output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -105,10 +105,10 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                            output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -118,10 +118,10 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                            output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -131,10 +131,10 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                             output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -144,10 +144,10 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                            output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -155,13 +155,13 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
 
 # Cambodia Binary Model Evaluation ----------------------------------------
 
-performancetables.dir <- 'model_output_balanced/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
+performancetables.dir <- 'model_output/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
 
 PerformanceOutput <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir,
                                                       class='Gibbons',
                                                       model.type = "binary",
                                                       Thresh.val = 0)
-#PerformanceOutput$FPRTPR_plot
+
 
 PerformanceOutput$f1_plot
 
@@ -210,22 +210,22 @@ check_data_leakage <- function(rootDir) {
 }
 
 # Check for leakage in different datasets
-check_data_leakage('data/training_images_sorted/Danum copy/')
+check_data_leakage('data/training_images_sorted/Danum/')
 
 
 # Grey Gibbon Binary Model Training ---------------------------------------
 
 # Location of spectrogram images for training
-input.data.path <-  'data/training_images_sorted/Danum copy/'
+input.data.path <-  'data/training_images_sorted/Danum/'
 
 # Location of spectrogram images for testing
-test.data.path <- "data/training_images_sorted/Danum copy/test/"
+test.data.path <- "data/training_images_sorted/Danum/test/"
 
 # Training data folder short
 trainingfolder.short <- 'imagesmalaysia'
 
-# Whether to unfreeze the layers
-unfreeze.param <- TRUE # FALSE means the features are frozen; TRUE unfrozen
+# Whether to unfreeze.param the layers
+unfreeze.param.param <- TRUE # FALSE means the features are frozen; TRUE unfrozen
 
 # Number of epochs to include
 epoch.iterations <- c(1,2,3,4,5,20)
@@ -236,10 +236,10 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                            output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -250,10 +250,10 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                            output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -263,10 +263,10 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                            output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -276,10 +276,10 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                            output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -289,10 +289,10 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                            output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -302,16 +302,16 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              save.model= TRUE,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "model_output_balanced/",
+                            output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
 
 # Evaluate model performance
-performancetables.dir <- "model_output_balanced/_imagesmalaysia_binary_unfrozen_TRUE_/performance_tables"
+performancetables.dir <- "model_output/_imagesmalaysia_binary_unfrozen_TRUE_/performance_tables"
 
 PerformanceOutput <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir,
                                                       class='Gibbons',
@@ -326,16 +326,16 @@ setwd("/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multisp
 devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
 
 # Location of spectrogram images for training
-input.data.path <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Combined copy/'
+input.data.path <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Combined/'
 
 # Location of spectrogram images for testing
-test.data.path <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Combined copy/test/'
+test.data.path <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Combined/test/'
 
 # Training data folder short
 trainingfolder.short <- 'imagesmulti'
 
-# Whether to unfreeze the layers
-unfreeze.param <- TRUE # FALSE means the features are frozen; TRUE unfrozen
+# Whether to unfreeze.param the layers
+unfreeze.param.param <- TRUE # FALSE means the features are frozen; TRUE unfrozen
 
 # Number of epochs to include
 epoch.iterations <- c(1,2,3,4,5,20)
@@ -348,11 +348,11 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             architecture ='alexnet',
                             learning_rate = 0.001,
                             test.data=test.data.path,
-                            unfreeze = TRUE,
+                            unfreeze.param = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                           output.base.path = "model_output_balanced/",
+                           output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -360,11 +360,11 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             architecture ='vgg16',
                             learning_rate = 0.001,
                             test.data=test.data.path,
-                            unfreeze = TRUE,
+                            unfreeze.param = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                           output.base.path = "model_output_balanced/",
+                           output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -372,11 +372,11 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             architecture ='vgg19',
                             learning_rate = 0.001,
                             test.data=test.data.path,
-                            unfreeze = TRUE,
+                            unfreeze.param = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                           output.base.path = "model_output_balanced/",
+                           output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -384,11 +384,11 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             architecture ='resnet18',
                             learning_rate = 0.001,
                             test.data=test.data.path,
-                            unfreeze = TRUE,
+                            unfreeze.param = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                           output.base.path = "model_output_balanced/",
+                           output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -396,11 +396,11 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             architecture ='resnet50',
                             learning_rate = 0.001,
                             test.data=test.data.path,
-                            unfreeze = TRUE,
+                            unfreeze.param = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                           output.base.path = "model_output_balanced/",
+                           output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -408,11 +408,11 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             architecture ='resnet152',
                             learning_rate = 0.001,
                             test.data=test.data.path,
-                            unfreeze = TRUE,
+                            unfreeze.param = TRUE,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                           output.base.path = "model_output_balanced/",
+                           output.base.path = "model_output/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -421,7 +421,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
 # Evaluate performance of all models ----------------------------------
 
 # Crested binary
-performancetables.dir.crested <- 'model_output_balanced/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
+performancetables.dir.crested <- 'model_output/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
 PerformanceOutputCrestedBinary <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir.crested,
                                                       class='Gibbons',
                                                       model.type = "binary", Thresh.val = 0)
@@ -432,7 +432,7 @@ PerformanceOutputCrestedBinary$pr_plot
 
 
 # Grey gibbons binary
-performancetables.dir.grey <- 'model_output_balanced/_imagesmalaysia_binary_unfrozen_TRUE_/performance_tables/'
+performancetables.dir.grey <- 'model_output/_imagesmalaysia_binary_unfrozen_TRUE_/performance_tables/'
 PerformanceOutputGreyBinary <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir.grey,
                                                                    class='Gibbons',
                                                                    model.type = "binary", Thresh.val = 0)
@@ -441,7 +441,7 @@ PerformanceOutputGreyBinary$f1_plot
 PerformanceOutputGreyBinary$best_f1$F1
 
 
-performancetables.dir.multi <- 'model_output_balanced/_imagesmulti_multi_unfrozen_TRUE_/performance_tables_multi/'
+performancetables.dir.multi <- 'model_output/_imagesmulti_multi_unfrozen_TRUE_/performance_tables_multi/'
 
 PerformanceOutputMultiCrested <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir.multi,
                                                            class='CrestedGibbons',
@@ -534,7 +534,7 @@ flextable::save_as_docx(CombinedDFSubsetFlextable,
 
 # If we train on a balanced dataset will this change threshold?
 
-balancedtraining <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Jahoo copy/'
+balancedtraining <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Jahoo/'
 
 
 gibbonNetR::train_CNN_binary(input.data.path=balancedtraining,
@@ -543,16 +543,16 @@ gibbonNetR::train_CNN_binary(input.data.path=balancedtraining,
                              save.model= T,
                              learning_rate = 0.001,
                              test.data=test.data.path,
-                             unfreeze = TRUE,
+                             unfreeze.param = TRUE,
                              epoch.iterations=1,
                              early.stop = "yes",
-                             output.base.path = "model_output_balanced/",
+                             output.base.path = "model_output/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
 
 
-performancetables.dir <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output_balanced/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
+performancetables.dir <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
 
 PerformanceOutputBalancedCrested <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir,
                                                                class='Gibbons',
@@ -562,22 +562,4 @@ PerformanceOutputBalancedCrested$f1_plot
 PerformanceOutputBalancedCrested$pr_plot
 PerformanceOutputBalancedCrested$FPRTPR_plot
 
-
-# Evaluate trained model performance (balanced data) ----------------------
-
-trained_models_dir <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output_balanced/_imagescambodia_binary_unfrozen_TRUE_/'
-
-image_data_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/Images/'
-
-output_dir <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output_balanced/'
-evaluate_trainedmodel_performance(trained_models_dir=trained_models_dir,
-                                  image_data_dir=image_data_dir,
-                                  output_dir = output_dir,
-                                  positive.class='CrestedGibbons')
-
-
-PerformanceOutPutTrained <- gibbonNetR::get_best_performance(performancetables.dir= paste(output_dir,"/performance_tables_trained/",sep=''),
-                                                             model.type = 'binary',class='Gibbons',Thresh.val =0.1)
-
-PerformanceOutPutTrained$f1_plot
 
