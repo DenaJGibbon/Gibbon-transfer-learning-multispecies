@@ -4,7 +4,7 @@ devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
 
 # Top model for Crested Gibbons -------------------------------------------
 
-trained_models_dir <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/top_models/cambodia_binary/'
+trained_models_dir <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output_balanced/top_models/cambodia_binary/'
 
 image_data_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/Images/'
 
@@ -15,7 +15,7 @@ evaluate_trainedmodel_performance(trained_models_dir=trained_models_dir,
 
 
 PerformanceOutPutTrained <- gibbonNetR::get_best_performance(performancetables.dir= "/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/model_eval/performance_tables_trained/",
-                                                             model.type = 'binary',class='Gibbons',Thresh.val =0.1)
+                                                             model.type = 'binary',class='CrestedGibbons',Thresh.val =0.1)
 
 PerformanceOutPutTrained$f1_plot
 PerformanceOutPutTrained$best_f1$F1
@@ -25,7 +25,7 @@ PerformanceOutPutTrained$pr_plot
 
 # Top model for Grey Gibbons -------------------------------------------
 
-trained_models_dir <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/top_models/malaysia_binary/'
+trained_models_dir <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output_balanced/top_models/malaysia_binary/'
 
 image_data_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/Images/'
 
@@ -45,7 +45,7 @@ PerformanceOutPutTrained$pr_plot
 
 # Cambodia multi ----------------------------------------------------------
 
-trained_models_dir <- "/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/top_models/combined_multi/"
+trained_models_dir <- "/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output_balanced/top_models/combined_multi/"
 
 #image_data_dir <- '/Volumes/DJC 1TB/VocalIndividualityClips/RandomSelectionImages/'
 image_data_dir <- "/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/Images/"
@@ -56,7 +56,7 @@ class_names <- c("CrestedGibbons", "GreyGibbons", "Noise")
 
 evaluate_trainedmodel_performance_multi(trained_models_dir=trained_models_dir,
                                         class_names=class_names,
-                                        trainingfolder=trainingfolder,
+                                        #trainingfolder=trainingfolder,
                                         image_data_dir=image_data_dir,
                                         output_dir="/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/model_eval_multi/",
                                         noise.category = "Noise")
@@ -74,7 +74,7 @@ PerformanceOutPutTrained$pr_plot
 (PerformanceOutPutTrained$pr_plot)+scale_color_manual(values=matlab::jet.colors(6))
 
 
-trained_models_dir <- "/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/top_models/combined_multi/"
+trained_models_dir <- "/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output_balanced/top_models/combined_multi/"
 
 #image_data_dir <- '/Volumes/DJC 1TB/VocalIndividualityClips/RandomSelectionImages/'
 image_data_dir <- "/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/Images/"
@@ -85,7 +85,7 @@ class_names <- c("CrestedGibbons", "GreyGibbons", "Noise")
 
 evaluate_trainedmodel_performance_multi(trained_models_dir=trained_models_dir,
                                         class_names=class_names,
-                                        trainingfolder=trainingfolder,
+                                        #trainingfolder=trainingfolder,
                                         image_data_dir=image_data_dir,
                                         output_dir="/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/model_eval_multi/",
                                         noise.category = "Noise")
@@ -199,7 +199,7 @@ flextable::save_as_docx(CombinedDFTestFlextable,
 
 # Create precision, recall, F1 curve for top models
 
-CrestedTopBinary <- read.csv('model_output/testdata_eval/cambodia_binary/performance_tables_trained/imagescambodia_20_resnet50_model_TransferLearningTrainedModel.csv')
+CrestedTopBinary <- read.csv('model_output_balanced/testdata_eval/cambodia_binary/performance_tables_trained/imagescambodia_20_resnet50_model_TransferLearningTrainedModel.csv')
 
 ggplot(data = CrestedTopBinary, aes(x = Threshold)) +
   geom_line(aes(y = F1, color = "F1"), linetype = "solid") +
@@ -213,7 +213,7 @@ ggplot(data = CrestedTopBinary, aes(x = Threshold)) +
   theme_minimal()+
   theme(legend.title = element_blank())# +xlim(0.5,1)
 
-GreyTopBinary <- read.csv('model_output/testdata_eval/malaysia_binary/performance_tables_trained/imagesmalaysia_4_resnet152_model_TransferLearningTrainedModel.csv')
+GreyTopBinary <- read.csv('model_output_balanced/testdata_eval/malaysia_binary/performance_tables_trained/imagesmalaysia_4_resnet152_model_TransferLearningTrainedModel.csv')
 
 ggplot(data = GreyTopBinary, aes(x = Threshold)) +
   geom_line(aes(y = F1, color = "F1"), linetype = "solid") +
@@ -227,7 +227,7 @@ ggplot(data = GreyTopBinary, aes(x = Threshold)) +
   theme_minimal()+
   theme(legend.title = element_blank())# +xlim(0.5,1)
  
-GreyTopMulti <- read.csv('model_output/testdata_eval/combined_multi/performance_tables_multi_trained/imagesmulti_5_resnet50_model_TransferLearningTrainedModel.csv')
+GreyTopMulti <- read.csv('model_output_balanced/testdata_eval/combined_multi/performance_tables_multi_trained/imagesmulti_5_resnet50_model_TransferLearningTrainedModel.csv')
 
 GreyTopMulti <- subset(GreyTopMulti,Class=='GreyGibbons')
 
@@ -243,7 +243,7 @@ ggplot(data = GreyTopMulti, aes(x = Threshold)) +
   theme_minimal()+
   theme(legend.title = element_blank())# +xlim(0.5,1)
 
-CrestedTopMulti <- read.csv('model_output/testdata_eval/combined_multi/performance_tables_multi_trained/imagesmulti_3_resnet50_model_TransferLearningTrainedModel.csv')
+CrestedTopMulti <- read.csv('model_output_balanced/testdata_eval/combined_multi/performance_tables_multi_trained/imagesmulti_3_resnet50_model_TransferLearningTrainedModel.csv')
 
 CrestedTopMulti <- subset(CrestedTopMulti,Class=='CrestedGibbons')
 
@@ -278,40 +278,40 @@ unfreeze.param <- TRUE # FALSE means the features are frozen; TRUE unfrozen
 # Number of epochs to include
 epoch.iterations <- c(1)
 
-gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
-                             architecture ='alexnet',
-                             noise.weight=0.1,
-                             save.model= TRUE,
-                             learning_rate = 0.001,
-                             test.data=test.data.path,
-                             unfreeze = TRUE,
-                             epoch.iterations=epoch.iterations,
-                             early.stop = "yes",
-                             output.base.path = "model_output/",
-                             trainingfolder=trainingfolder.short,
-                             positive.class="Gibbons",
-                             negative.class="Noise")
-
-image_data_dir <- 'data/testimages/imagesmaliau/test/'
-
-evaluate_trainedmodel_performance(trained_models_dir='model_output/_imagesmalaysiacopy_binary_unfrozen_TRUE_',
-                                  image_data_dir=image_data_dir,
-                                  output_dir = "model_output/testdata_eval/malaysiacopy_binary/")
-
-
-CrestedTopBinary <- read.csv('model_output/testdata_eval/malaysia_binary/performance_tables_trained/imagesmalaysia_1_resnet50_model_TransferLearningTrainedModel.csv')
-
-#CrestedTopBinary <- read.csv('/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/testdata_eval/cambodia_binary/performance_tables_trained/imagescambodia_1_alexnet_model_TransferLearningTrainedModel.csv')
-
-ggplot(data = CrestedTopBinary, aes(x = Threshold)) +
-  geom_line(aes(y = F1, color = "F1"), linetype = "solid") +
-  geom_line(aes(y = Precision, color = "Precision"), linetype = "solid") +
-  geom_line(aes(y = Recall, color = "Recall"), linetype = "solid") +
-  labs(title = "Crested Gibbons (binary)",
-       x = "Thresholds",
-       y = "Values") +
-  scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
-                     labels = c("F1", "Precision", "Recall")) +
-  theme_minimal()+
-  theme(legend.title = element_blank())# +xlim(0.5,1)
+# gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
+#                              architecture ='alexnet',
+#                              noise.weight=0.1,
+#                              save.model= TRUE,
+#                              learning_rate = 0.001,
+#                              test.data=test.data.path,
+#                              unfreeze = TRUE,
+#                              epoch.iterations=epoch.iterations,
+#                              early.stop = "yes",
+#                              output.base.path = "model_output_balanced/",
+#                              #trainingfolder=trainingfolder.short,
+#                              positive.class="Gibbons",
+#                              negative.class="Noise")
+# 
+# image_data_dir <- 'data/testimages/imagesmaliau/test/'
+# 
+# evaluate_trainedmodel_performance(trained_models_dir='model_output_balanced/_imagesmalaysiacopy_binary_unfrozen_TRUE_',
+#                                   image_data_dir=image_data_dir,
+#                                   output_dir = "model_output_balanced/testdata_eval/malaysiacopy_binary/")
+# 
+# 
+# CrestedTopBinary <- read.csv('model_output_balanced/testdata_eval/malaysia_binary/performance_tables_trained/imagesmalaysia_1_resnet50_model_TransferLearningTrainedModel.csv')
+# 
+# #CrestedTopBinary <- read.csv('/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output_balanced/testdata_eval/cambodia_binary/performance_tables_trained/imagescambodia_1_alexnet_model_TransferLearningTrainedModel.csv')
+# 
+# ggplot(data = CrestedTopBinary, aes(x = Threshold)) +
+#   geom_line(aes(y = F1, color = "F1"), linetype = "solid") +
+#   geom_line(aes(y = Precision, color = "Precision"), linetype = "solid") +
+#   geom_line(aes(y = Recall, color = "Recall"), linetype = "solid") +
+#   labs(title = "Crested Gibbons (binary)",
+#        x = "Thresholds",
+#        y = "Values") +
+#   scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
+#                      labels = c("F1", "Precision", "Recall")) +
+#   theme_minimal()+
+#   theme(legend.title = element_blank())# +xlim(0.5,1)
 
