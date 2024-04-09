@@ -172,13 +172,13 @@ CombinedDFTestFlextable
 
 
 
-# flextable::save_as_docx(CombinedDFTestFlextable,
-#                         path='Table 2 Performance on test data.docx')
+flextable::save_as_docx(CombinedDFTestFlextable,
+                         path='Table 2 Performance on test data.docx')
 
 
 # Create precision, recall, F1 curve for top models
 
-CrestedTopBinary <- read.csv('model_output/testdata_eval/cambodia_binary/performance_tables_trained/imagescambodia_20_resnet50_model_TransferLearningTrainedModel.csv')
+CrestedTopBinary <- read.csv('model_output/testdata_eval/cambodia_binary/performance_tables_trained/imagescambodia_5_resnet50_model_TransferLearningTrainedModel.csv')
 
 ggplot(data = CrestedTopBinary, aes(x = Threshold)) +
   geom_line(aes(y = F1, color = "F1"), linetype = "solid") +

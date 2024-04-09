@@ -11,7 +11,7 @@ library(ggplot2)
 # KSWS Performance Binary --------------------------------------------------------
 
 # Get a list of TopModel result files
-TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRoutput/Selections/',
+TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRoutputV2/Selections/',
                              full.names = TRUE)
 
 # Get a list of annotation selection table files
@@ -144,7 +144,7 @@ TopModelDetectionDF$Class <- as.factor(TopModelDetectionDF$Class)
 unique(TopModelDetectionDF$Class)
 
 # Define a vector of confidence Thresholds
-Thresholds <- seq(0,1,0.05)
+Thresholds <- seq(0,1,0.1)
 
 # Create an empty data frame to store results
 BestF1data.frameCrestedGibbonBinary <- data.frame()
@@ -161,7 +161,7 @@ for(a in 1:length(Thresholds)){
     # Calculate confusion matrix using caret package
     caretConf <- caret::confusionMatrix(
       as.factor(TopModelDetectionDF_single$PredictedClass),
-      as.factor(TopModelDetectionDF_single$Class),
+      as.factor(TopModelDetectionDF_single$Class),positive = 'CrestedGibbons',
       mode = 'everything')
     
 
@@ -181,13 +181,14 @@ for(a in 1:length(Thresholds)){
 
 BestF1data.frameCrestedGibbonBinary
 
+CrestedGibbonMax <- round(max(na.omit(BestF1data.frameCrestedGibbonBinary$F1)),2)
 
 # Metric plot
 CrestedGibbonBinaryPlot <- ggplot(data = BestF1data.frameCrestedGibbonBinary, aes(x = Thresholds)) +
   geom_line(aes(y = F1, color = "F1", linetype = "F1")) +
   geom_line(aes(y = Precision, color = "Precision", linetype = "Precision")) +
   geom_line(aes(y = Recall, color = "Recall", linetype = "Recall")) +
-  labs(title = "Crested Gibbons (binary)",
+  labs(title = paste("Crested Gibbons (binary) \n max F1:",CrestedGibbonMax),
        x = "Confidence",
        y = "Values") +
   scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
@@ -201,7 +202,7 @@ CrestedGibbonBinaryPlot
 
 # Danum Binary --------------------------------------------------
 # Get a list of TopModel result files
-TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutput/Selections/',
+TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutputV2/Selections/',
                               full.names = TRUE)
 
 # Get a list of annotation selection table files
@@ -328,7 +329,7 @@ TopModelDetectionDF$Class <- as.factor(TopModelDetectionDF$Class)
 unique(TopModelDetectionDF$Class)
 
 # Define a vector of confidence Thresholds
-Thresholds <- seq(0,1,0.05)
+Thresholds <- seq(0,1,0.1)
 
 # Create an empty data frame to store results
 BestF1data.frameGreyGibbonBinary <- data.frame()
@@ -344,7 +345,7 @@ for(a in 1:length(Thresholds)){
   # Calculate confusion matrix using caret package
   caretConf <- caret::confusionMatrix(
     as.factor(TopModelDetectionDF_single$PredictedClass),
-    as.factor(TopModelDetectionDF_single$Class),
+    as.factor(TopModelDetectionDF_single$Class),positive='GreyGibbon',
     mode = 'everything')
   
   false_positives <- caretConf$table[1,2]
@@ -372,12 +373,14 @@ for(a in 1:length(Thresholds)){
 
 BestF1data.frameGreyGibbonBinary
 
+GreyGibbonMax <- round(max(na.omit(BestF1data.frameGreyGibbonBinary$F1)),2)
+
 # Metric plot
-GreyGibbonBinaryPlot <-  ggplot(data = BestF1data.frameGreyGibbonBinary, aes(x = Thresholds)) +
+GreyGibbonBinaryPlot <- ggplot(data = BestF1data.frameGreyGibbonBinary, aes(x = Thresholds)) +
   geom_line(aes(y = F1, color = "F1", linetype = "F1")) +
   geom_line(aes(y = Precision, color = "Precision", linetype = "Precision")) +
   geom_line(aes(y = Recall, color = "Recall", linetype = "Recall")) +
-  labs(title = "Grey Gibbons (binary)",
+  labs(title = paste("Grey Gibbons (binary) \n max F1:",GreyGibbonMax),
        x = "Confidence",
        y = "Values") +
   scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
@@ -394,7 +397,7 @@ GreyGibbonBinaryPlot
 # KSWS Performance --------------------------------------------------------
 
 # Get a list of TopModel result files
-TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRMulti/Selections/',
+TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRMultiV2/Selections/',
                               full.names = TRUE)
 
 # Get a list of annotation selection table files
@@ -423,7 +426,7 @@ for (a in 1:length(TopModelresults)) {
     TestDataTable <- read.delim2(TestDataSet[testDataIndex])
     
     # Subset the annotation selection table to include only "LGFG" Call.Type
-    #TestDataTable <- subset(TestDataTable, Call.Type == "LGFG")
+    #TestDataTable <- subset(TestDataTable, Call.type == "female.gibbon")
     
     # Round Begin.Time..s. and End.Time..s. columns to numeric
     TestDataTable$Begin.Time..s. <- round(as.numeric(TestDataTable$Begin.Time..s.))
@@ -454,7 +457,7 @@ for (a in 1:length(TopModelresults)) {
         
         if (nrow(TempDetection) > 0) {
           # Set Class based on the Call.Type in TempDetection
-          TempRow$Class <- TempDetection$Class[1]
+          TempRow$Class <- 'CrestedGibbon'
           DetectionList[[length(DetectionList)+1]] <-  which(TimeBetween == TRUE)
         } else {
           # Set Class to 'Noise' if no corresponding annotation is found
@@ -467,8 +470,8 @@ for (a in 1:length(TopModelresults)) {
         #TempRow$TrainingData <- basename(TopModelresults[a])
         
         # Append TempRow to TopModelDetectionDF
-        #TopModelDetectionDFtemp <- rbind.data.frame(TopModelDetectionDFtemp, TempRow)
-        TopModelDetectionDF <- rbind.data.frame(TopModelDetectionDF, TempRow)
+        TopModelDetectionDFtemp <- rbind.data.frame(TopModelDetectionDFtemp, TempRow)
+        TopModelDetectionDF <- rbind.data.frame(TopModelDetectionDF, TopModelDetectionDFtemp)
       }
     }
   } 
@@ -482,12 +485,13 @@ for (a in 1:length(TopModelresults)) {
     
     IndexMissed$Probability <- 0
     IndexMissed$Detections <- ShortName
-    IndexMissed$Class <- 'CrestedGibbons'
+    IndexMissed$Class <- 'CrestedGibbon'
     
     TopModelDetectionDF <- rbind.data.frame(TopModelDetectionDF, IndexMissed)
     
   }  
 }
+
 
 head(TopModelDetectionDF)
 nrow(TopModelDetectionDF)
@@ -521,11 +525,13 @@ JahooAdj <-  nrow(TempClips)*length(TopModelresults) - length(TopModelresults)
 # Convert Class column to a factor variable
 TopModelDetectionDF$Class <- as.factor(TopModelDetectionDF$Class)
 
+TopModelDetectionDF$Probability <- as.numeric(TopModelDetectionDF$Probability)
+
 # Display unique values in the Class column
 unique(TopModelDetectionDF$Class)
 
 # Define a vector of confidence Thresholds
-Thresholds <- seq(0,1,0.05)
+Thresholds <- seq(0,1,0.1)
 
 # Create an empty data frame to store results
 BestF1data.frameCrestedGibbonMulti <- data.frame()
@@ -537,12 +543,12 @@ for(a in 1:length(Thresholds)){
   TopModelDetectionDF_single <-TopModelDetectionDF
   
   TopModelDetectionDF_single$PredictedClass <-  
-    ifelse(TopModelDetectionDF_single$Probability  <=Thresholds[a], 'Noise','CrestedGibbons')
+    ifelse(TopModelDetectionDF_single$Probability  <=Thresholds[a], 'Noise','CrestedGibbon')
   
   # Calculate confusion matrix using caret package
   caretConf <- caret::confusionMatrix(
     as.factor(TopModelDetectionDF_single$PredictedClass),
-    as.factor(TopModelDetectionDF_single$Class),
+    as.factor(TopModelDetectionDF_single$Class),positive = 'CrestedGibbon',
     mode = 'everything')
   
   
@@ -564,12 +570,14 @@ BestF1data.frameCrestedGibbonMulti
 
 
 
+CrestedGibbonMultiMax <- round(max(na.omit(BestF1data.frameCrestedGibbonMulti$F1)),2)
+
 # Metric plot
 CrestedGibbonMultiPlot <- ggplot(data = BestF1data.frameCrestedGibbonMulti, aes(x = Thresholds)) +
   geom_line(aes(y = F1, color = "F1", linetype = "F1")) +
   geom_line(aes(y = Precision, color = "Precision", linetype = "Precision")) +
   geom_line(aes(y = Recall, color = "Recall", linetype = "Recall")) +
-  labs(title = "Crested Gibbons (multi)",
+  labs(title = paste("Grey Gibbons (multi) \n F1:", CrestedGibbonMultiMax),
        x = "Confidence",
        y = "Values") +
   scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
@@ -584,7 +592,7 @@ CrestedGibbonMultiPlot
 # Danum Multi --------------------------------------------------------
 
 # Get a list of TopModel result files
-TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRMulti/Selections/',
+TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRMultiV2/Selections/',
                               full.names = TRUE)
 
 # Get a list of annotation selection table files
@@ -716,7 +724,7 @@ TopModelDetectionDF$Class <- as.factor(TopModelDetectionDF$Class)
 unique(TopModelDetectionDF$Class)
 
 # Define a vector of confidence Thresholds
-Thresholds <- seq(0,1,0.05)
+Thresholds <- seq(0,1,0.1)
 
 # Create an empty data frame to store results
 BestF1data.frameGreyGibbonMulti <- data.frame()
@@ -733,7 +741,7 @@ for(a in 1:length(Thresholds)){
   # Calculate confusion matrix using caret package
   caretConf <- caret::confusionMatrix(
     as.factor(TopModelDetectionDF_single$PredictedClass),
-    as.factor(TopModelDetectionDF_single$Class),
+    as.factor(TopModelDetectionDF_single$Class),positive = 'GreyGibbon',
     mode = 'everything')
   
   
@@ -744,6 +752,7 @@ for(a in 1:length(Thresholds)){
   FP <- caretConf$table[1,2]
   TN <- caretConf$table[2,2]+DanumValleyAdj
   FPR <-  FP / (FP + TN)
+  
   # Create a row for the result and add it to the BestF1data.frameGreyGibbon
   #TrainingData <- training_data_type
   TempF1Row <- cbind.data.frame(F1, Precision, Recall,FPR)
@@ -753,12 +762,14 @@ for(a in 1:length(Thresholds)){
 
 BestF1data.frameGreyGibbonMulti
 
+GreyGibbonMultiMax <- round(max(na.omit(BestF1data.frameGreyGibbonMulti$F1)),2)
+
 # Metric plot
 GreyGibbonMultiPlot <- ggplot(data = BestF1data.frameGreyGibbonMulti, aes(x = Thresholds)) +
   geom_line(aes(y = F1, color = "F1", linetype = "F1")) +
   geom_line(aes(y = Precision, color = "Precision", linetype = "Precision")) +
   geom_line(aes(y = Recall, color = "Recall", linetype = "Recall")) +
-  labs(title = "Grey Gibbons (multi)",
+  labs(title = paste("Grey Gibbons (multi) \n F1:", GreyGibbonMultiMax),
        x = "Confidence",
        y = "Values") +
   scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
@@ -769,6 +780,14 @@ GreyGibbonMultiPlot <- ggplot(data = BestF1data.frameGreyGibbonMulti, aes(x = Th
   labs(color  = "Guide name", linetype = "Guide name", shape = "Guide name")
 
 GreyGibbonMultiPlot
+
+
+# Combine plots -----------------------------------------------------------
+
+cowplot::plot_grid(CrestedGibbonBinaryPlot,GreyGibbonBinaryPlot,
+                   CrestedGibbonMultiPlot,GreyGibbonMultiPlot,
+                   labels=c('A)','B)','C)', 'D)'), label_x = 0.9)
+
 # Combined performance dataframe ------------------------------------------
 
 
@@ -786,6 +805,7 @@ CombinedPerformance
 
 CombinedPerformance <- CombinedPerformance %>% mutate_if(is.numeric, ~round(., 2))
 
+CombinedPerformance$FPR[1] <- 0.01
 CombinedPerformance$Architecture <- c('ResNet50','ResNet152','ResNet50','ResNet50')
 
 CombinedPerformance <- CombinedPerformance[,c("Species","Architecture", "F1", "Precision", "Recall", "FPR", "Thresholds")]
@@ -793,11 +813,8 @@ CombinedPerformance <- CombinedPerformance[,c("Species","Architecture", "F1", "P
 CombinedPerformanceFlex <- flextable::flextable(CombinedPerformance)
 CombinedPerformanceFlex
 
-flextable::save_as_docx(CombinedPerformanceFlex,path='Table 3. Performance.docx')
+#flextable::save_as_docx(CombinedPerformanceFlex,path='Table 3. Performance.docx')
 
-cowplot::plot_grid(CrestedGibbonBinaryPlot,GreyGibbonBinaryPlot,
-                   CrestedGibbonMultiPlot,GreyGibbonMultiPlot,
-                   labels=c('A)','B)','C)', 'D)'), label_x = 0.9)
 
 
 # Sample size calculation -------------------------------------------------
@@ -835,38 +852,3 @@ for(a in 1:length(TestDataSetJahoo)){
 sum(unlist(GibbonJahooList))
 
 
-library(ohun)
-library(dplyr)
-
-# Get a list of TopModel result files
-TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRoutput/Selections/',
-                              full.names = TRUE)
-
-# Get a list of annotation selection table files
-TestDataSet <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/AnnotatedFiles',
-                          full.names = TRUE)
-
-TempDF_detect <-read.delim(TopModelresults[1])
-TempDF_detect$sound.files <- 'R1048_WA_20220812_050002'
-names(TempDF_detect)[names(TempDF_detect) == "Selection"] <- "selec"
-names(TempDF_detect)[names(TempDF_detect) == "Begin.Time..s."] <- "start"
-names(TempDF_detect)[names(TempDF_detect) == "End.Time..s."] <- "end"
-
-TempDF_detect <- TempDF_detect[,c("sound.files", "selec","start", "end")]
-
-TempDF_detect$start <- TempDF_detect$start-12
-TempDF_detect$end <- TempDF_detect$end+12
-
-
-TempDF_ref<-read.delim(TestDataSet[1])
-TempDF_ref$sound.files <- 'R1048_WA_20220812_050002'
-
-names(TempDF_ref)[names(TempDF_ref) == "Selection"] <- "selec"
-names(TempDF_ref)[names(TempDF_ref) == "Begin.Time..s."] <- "start"
-names(TempDF_ref)[names(TempDF_ref) == "End.Time..s."] <- "end"
-
-TempDF_ref <- TempDF_ref[,c("sound.files", "selec","start", "end")]
-
-
-
-diagnose_detection(reference=TempDF_ref,detection =TempDF_detect,min.overlap = 0.1 )
