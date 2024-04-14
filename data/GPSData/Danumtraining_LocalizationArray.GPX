@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gpx version="1.0" creator="QGIS">
+<wpt lat="4.961315961555" lon="117.802689000964">
+<name>SW10</name>
+<ele>146.793</ele>
+<sym>Flag, Blue</sym>
+</wpt>
+<wpt lat="4.961571022868" lon="117.796376002952">
+<name>SW1</name>
+<ele>169.094</ele>
+<sym>Flag, Blue</sym>
+</wpt>
+<wpt lat="4.960639039055" lon="117.797516025603">
+<name>SW2</name>
+<ele>159.572</ele>
+<sym>Flag, Blue</sym>
+</wpt>
+<wpt lat="4.963599024341" lon="117.800075020641">
+<name>SW4</name>
+<ele>161.201</ele>
+<sym>Flag, Blue</sym>
+</wpt>
+<wpt lat="4.963055038825" lon="117.797201033682">
+<name>SW5</name>
+<ele>184.737</ele>
+<sym>Flag, Blue</sym>
+</wpt>
+<wpt lat="4.962932998314" lon="117.804482979700">
+<name>SW6</name>
+<ele>175.811</ele>
+<sym>Flag, Blue</sym>
+</wpt>
+<wpt lat="4.961216971278" lon="117.804234037176">
+<name>SW7</name>
+<ele>174.935</ele>
+<sym>Flag, Blue</sym>
+</wpt>
+<wpt lat="4.961982993409" lon="117.802002020180">
+<name>SW8</name>
+<ele>179.408</ele>
+<sym>Flag, Blue</sym>
+</wpt>
+<wpt lat="4.960716990754" lon="117.801600024104">
+<name>SW9</name>
+<ele>174.079</ele>
+<sym>Flag, Blue</sym>
+</wpt>
+</gpx>

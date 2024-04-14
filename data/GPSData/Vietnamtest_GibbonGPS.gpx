@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="GDAL 2.2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ogr="http://osgeo.org/gdal" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<metadata><bounds minlat="16.495840000000001" minlon="106.927459999999996" maxlat="16.625509999999998" maxlon="107.063789999999997"/></metadata>                
+<wpt lat="16.62551" lon="106.9858">
+  <extensions>
+    <ogr:Lon>106.9858</ogr:Lon>
+    <ogr:Lat>16.62551</ogr:Lat>
+    <ogr:Group>1</ogr:Group>
+  </extensions>
+</wpt>
+<wpt lat="16.6159" lon="106.92746">
+  <extensions>
+    <ogr:Lon>106.92746</ogr:Lon>
+    <ogr:Lat>16.6159</ogr:Lat>
+    <ogr:Group>2</ogr:Group>
+  </extensions>
+</wpt>
+<wpt lat="16.50048" lon="107.06279">
+  <extensions>
+    <ogr:Lon>107.06279</ogr:Lon>
+    <ogr:Lat>16.50048</ogr:Lat>
+    <ogr:Group>3</ogr:Group>
+  </extensions>
+</wpt>
+<wpt lat="16.49584" lon="107.06379">
+  <extensions>
+    <ogr:Lon>107.06379</ogr:Lon>
+    <ogr:Lat>16.49584</ogr:Lat>
+    <ogr:Group></ogr:Group>
+  </extensions>
+</wpt>
+<wpt lat="16.54571" lon="107.02888">
+  <extensions>
+    <ogr:Lon>107.02888</ogr:Lon>
+    <ogr:Lat>16.54571</ogr:Lat>
+    <ogr:Group>4</ogr:Group>
+  </extensions>
+</wpt>
+<wpt lat="16.59555" lon="107.02431">
+  <extensions>
+    <ogr:Lon>107.02431</ogr:Lon>
+    <ogr:Lat>16.59555</ogr:Lat>
+    <ogr:Group>5</ogr:Group>
+  </extensions>
+</wpt>
+</gpx>
