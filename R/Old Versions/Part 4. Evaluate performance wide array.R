@@ -46,7 +46,8 @@ PerformanceOutPutTrained$pr_plot
 
 # Cambodia multi ----------------------------------------------------------
 
-trained_models_dir <- "/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/top_models/combined_multi/"
+trained_models_dir <- "/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/_imagesmulti_multi_unfrozen_TRUE_/"
+
 
 #image_data_dir <- '/Volumes/DJC 1TB/VocalIndividualityClips/RandomSelectionImages/'
 image_data_dir <- "/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/Images/"
@@ -75,7 +76,7 @@ PerformanceOutPutTrained$pr_plot
 (PerformanceOutPutTrained$pr_plot)+scale_color_manual(values=matlab::jet.colors(6))
 
 
-trained_models_dir <- "/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/top_models/combined_multi/"
+trained_models_dir <- "/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/_imagesmulti_multi_unfrozen_TRUE_/"
 
 #image_data_dir <- '/Volumes/DJC 1TB/VocalIndividualityClips/RandomSelectionImages/'
 image_data_dir <- "/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/Images/"
@@ -106,7 +107,7 @@ library(flextable)
 library(dplyr)
 
 # Crested binary
-PerformanceOutputTestCrestedBinary <- gibbonNetR::get_best_performance(performancetables.dir='/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/model_eval/performance_tables_trained/',
+PerformanceOutputTestCrestedBinary <- gibbonNetR::get_best_performance(performancetables.dir='/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/model_eval_allmodels/performance_tables_trained/',
                                                                        model.type = 'binary',class='Gibbons',
                                                                        Thresh.val = 0.1)
 
@@ -117,7 +118,7 @@ PerformanceOutputTestCrestedBinary$best_precision
 PerformanceOutputTestCrestedBinary$best_f1 <- PerformanceOutputTestCrestedBinary$best_f1[,-c(19)]
 
 # Grey gibbons binary
-PerformanceOutputTestGreyBinary <- gibbonNetR::get_best_performance(performancetables.dir='/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/model_eval/performance_tables_trained',
+PerformanceOutputTestGreyBinary <- gibbonNetR::get_best_performance(performancetables.dir='/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/model_eval_allmodels/performance_tables_trained',
                                                                     model.type = 'binary',class='Gibbons',Thresh.val = 0.1)
 
 PerformanceOutputTestGreyBinary$f1_plot
@@ -131,7 +132,7 @@ PerformanceOutputTestMultiCrested <-  gibbonNetR::get_best_performance(performan
                                                                        class='CrestedGibbons',Thresh.val = 0.1)
 
 PerformanceOutputTestMultiCrested$f1_plot
-PerformanceOutputTestMultiCrested$best_f1
+PerformanceOutputTestMultiCrested$best_f1$F1
 
 performancetables.dir.multi.grey <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/model_eval_multi/performance_tables_multi_trained/'
 
@@ -194,8 +195,8 @@ CombinedDFTestFlextable
 
 
 
-flextable::save_as_docx(CombinedDFTestFlextable,
-                        path='Table 2 Performance on test data.docx')
+# flextable::save_as_docx(CombinedDFTestFlextable,
+#                         path='Table 2 Performance on test data.docx')
 
 
 # -------------------------------------------------------------------------
@@ -203,30 +204,16 @@ flextable::save_as_docx(CombinedDFTestFlextable,
 
 # Create precision, recall, F1 curve for top models
 
-CrestedTopBinary <- read.csv('model_output/testdata_eval/cambodia_binary/performance_tables_trained/imagescambodia_20_resnet50_model_TransferLearningTrainedModel.csv')
+BestF1data.frameCrestedGibbonBinary <- read.csv('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/model_eval_allmodels/performance_tables_trained/imagescambodia_5_resnet152_model_TransferLearningTrainedModel.csv')
 
-ggplot(data = CrestedTopBinary, aes(x = Threshold)) +
-  geom_line(aes(y = F1, color = "F1"), linetype = "solid") +
-  geom_line(aes(y = Precision, color = "Precision"), linetype = "solid") +
-  geom_line(aes(y = Recall, color = "Recall"), linetype = "solid") +
-  labs(title = "Crested Gibbons (binary)",
-       x = "Thresholds",
-       y = "Values") +
-  scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
-                     labels = c("F1", "Precision", "Recall")) +
-  theme_minimal()+
-  theme(legend.title = element_blank())# +xlim(0.5,1)
+CrestedGibbonMax <- round(max(na.omit(BestF1data.frameCrestedGibbonBinary$F1)),2)
 
-
-GreyTopBinary <- read.csv('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/model_eval/performance_tables_trained/imagesmalaysia_3_vgg19_model_TransferLearningTrainedModel.csv')
-
-MaxF1Binary <- round(max(na.omit(GreyTopBinary$F1)),2)
-
-GreyTopBinary <- ggplot(data = GreyTopBinary, aes(x = Threshold)) +
+# Metric plot
+CrestedGibbonBinaryPlot <- ggplot(data = BestF1data.frameCrestedGibbonBinary, aes(x = Thresholds)) +
   geom_line(aes(y = F1, color = "F1", linetype = "F1")) +
   geom_line(aes(y = Precision, color = "Precision", linetype = "Precision")) +
   geom_line(aes(y = Recall, color = "Recall", linetype = "Recall")) +
-  labs(title = paste("Grey Gibbons (CNN Binary) \n",'Max F1=', MaxF1Binary),
+  labs(title = paste("Crested Gibbons (binary) \n max F1:",CrestedGibbonMax),
        x = "Confidence",
        y = "Values") +
   scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
@@ -234,39 +221,78 @@ GreyTopBinary <- ggplot(data = GreyTopBinary, aes(x = Threshold)) +
   scale_linetype_manual(values = c("F1" = "dashed", "Precision" = "dotted", "Recall" = "solid")) +
   theme_minimal() +
   theme(legend.title = element_blank())+
-  labs(color  = "Guide name", linetype = "Guide name", shape = "Guide name")+ylim(0,1)
+  labs(color  = "Guide name", linetype = "Guide name", shape = "Guide name")
 
+CrestedGibbonBinaryPlot
 
-GreyTopMulti <- read.csv('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/model_eval_multi/performance_tables_multi_trained/imagesmulti_5_vgg19_model_TransferLearningTrainedModel.csv')
+BestF1data.frameGreyGibbonBinary <- read.csv('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/model_eval_allmodels/performance_tables_trained/imagesmalaysia_2_resnet152_model_TransferLearningTrainedModel.csv')
 
+GreyGibbonMax <- round(max(na.omit(BestF1data.frameGreyGibbonBinary$F1)),2)
 
-GreyTopMultiPlot <-ggplot(data = GreyTopMulti, aes(x = Threshold)) +
-  geom_line(aes(y = F1, color = "F1"), linetype = "solid") +
-  geom_line(aes(y = Precision, color = "Precision"), linetype = "solid") +
-  geom_line(aes(y = Recall, color = "Recall"), linetype = "solid") +
-  labs(title = "Grey Gibbons (binary)",
-       x = "Thresholds",
+# Metric plot
+GreyGibbonBinaryPlot <- ggplot(data = BestF1data.frameGreyGibbonBinary, aes(x = Thresholds)) +
+  geom_line(aes(y = F1, color = "F1", linetype = "F1")) +
+  geom_line(aes(y = Precision, color = "Precision", linetype = "Precision")) +
+  geom_line(aes(y = Recall, color = "Recall", linetype = "Recall")) +
+  labs(title = paste("Grey Gibbons (binary) \n max F1:",GreyGibbonMax),
+       x = "Confidence",
        y = "Values") +
   scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
                      labels = c("F1", "Precision", "Recall")) +
-  theme_minimal()+
-  theme(legend.title = element_blank())# +xlim(0.5,1)
- 
+  scale_linetype_manual(values = c("F1" = "dashed", "Precision" = "dotted", "Recall" = "solid")) +
+  theme_minimal() +
+  theme(legend.title = element_blank())+
+  labs(color  = "Guide name", linetype = "Guide name", shape = "Guide name")
 
-CrestedTopMulti <- read.csv('model_output/testdata_eval/combined_multi/performance_tables_multi_trained/imagesmulti_3_resnet50_model_TransferLearningTrainedModel.csv')
+GreyGibbonBinaryPlot
 
-CrestedTopMulti <- subset(CrestedTopMulti,Class=='CrestedGibbons')
 
-CrestedTopMultiPlot <- ggplot(data = CrestedTopMulti, aes(x = Threshold)) +
-  geom_line(aes(y = F1, color = "F1"), linetype = "solid") +
-  geom_line(aes(y = Precision, color = "Precision"), linetype = "solid") +
-  geom_line(aes(y = Recall, color = "Recall"), linetype = "solid") +
-  labs(title = "Crested Gibbons (multi)",
-       x = "Thresholds",
+BestF1data.frameGreyGibbonMulti <- read.csv('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/model_eval_multi/performance_tables_multi_trained/imagesmulti_1_resnet50_model_TransferLearningTrainedModel.csv')
+
+GreyGibbonMultiMax <- round(max(na.omit(BestF1data.frameGreyGibbonMulti$F1)),2)
+
+# Metric plot
+GreyGibbonMultiPlot <- ggplot(data = BestF1data.frameGreyGibbonMulti, aes(x = Thresholds)) +
+  geom_line(aes(y = F1, color = "F1", linetype = "F1")) +
+  geom_line(aes(y = Precision, color = "Precision", linetype = "Precision")) +
+  geom_line(aes(y = Recall, color = "Recall", linetype = "Recall")) +
+  labs(title = paste("Grey Gibbons (multi) \n F1:", GreyGibbonMultiMax),
+       x = "Confidence",
        y = "Values") +
   scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
                      labels = c("F1", "Precision", "Recall")) +
-  theme_minimal()+
-  theme(legend.title = element_blank())# +xlim(0.5,1)
+  scale_linetype_manual(values = c("F1" = "dashed", "Precision" = "dotted", "Recall" = "solid")) +
+  theme_minimal() +
+  theme(legend.title = element_blank())+
+  labs(color  = "Guide name", linetype = "Guide name", shape = "Guide name")
+
+GreyGibbonMultiPlot
 
 
+
+BestF1data.frameCrestedGibbonMulti <- read.csv('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/model_eval_multi/performance_tables_multi_trained/imagesmulti_5_resnet50_model_TransferLearningTrainedModel.csv')
+
+CrestedGibbonMultiMax <- round(max(na.omit(BestF1data.frameCrestedGibbonMulti$F1)),2)
+
+# Metric plot
+CrestedGibbonMultiPlot <- ggplot(data = BestF1data.frameCrestedGibbonMulti, aes(x = Thresholds)) +
+  geom_line(aes(y = F1, color = "F1", linetype = "F1")) +
+  geom_line(aes(y = Precision, color = "Precision", linetype = "Precision")) +
+  geom_line(aes(y = Recall, color = "Recall", linetype = "Recall")) +
+  labs(title = paste("Crested Gibbons (multi) \n F1:", CrestedGibbonMultiMax),
+       x = "Confidence",
+       y = "Values") +
+  scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
+                     labels = c("F1", "Precision", "Recall")) +
+  scale_linetype_manual(values = c("F1" = "dashed", "Precision" = "dotted", "Recall" = "solid")) +
+  theme_minimal() +
+  theme(legend.title = element_blank())+
+  labs(color  = "Guide name", linetype = "Guide name", shape = "Guide name")
+
+CrestedGibbonMultiPlot
+
+# Combine plots -----------------------------------------------------------
+
+cowplot::plot_grid(CrestedGibbonBinaryPlot,GreyGibbonBinaryPlot,
+                   CrestedGibbonMultiPlot,GreyGibbonMultiPlot,
+                   labels=c('A)','B)','C)', 'D)'), label_x = 0.9)

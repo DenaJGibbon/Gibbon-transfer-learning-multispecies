@@ -54,7 +54,6 @@ check_data_leakage <- function(rootDir) {
 # Check for leakage in different datasets
 check_data_leakage('data/training_images_sorted/Jahoo')
 
-
 # Cambodia Binary Model Training ---------------------------------------------------------
 
 # Location of spectrogram images for training
@@ -529,37 +528,5 @@ CombinedDFSubsetFlextable
 
 flextable::save_as_docx(CombinedDFSubsetFlextable,
                          path='Online Supporting Material Table 1. Performance on training split.docx')
-
-
-
-# If we train on a balanced dataset will this change threshold?
-
-balancedtraining <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Jahoo/'
-
-
-gibbonNetR::train_CNN_binary(input.data.path=balancedtraining,
-                             architecture ='resnet152',
-                             noise.weight =0.5,
-                             save.model= T,
-                             learning_rate = 0.001,
-                             test.data=test.data.path,
-                             unfreeze.param = TRUE,
-                             epoch.iterations=1,
-                             early.stop = "yes",
-                             output.base.path = "model_output/",
-                             trainingfolder=trainingfolder.short,
-                             positive.class="Gibbons",
-                             negative.class="Noise")
-
-
-performancetables.dir <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
-
-PerformanceOutputBalancedCrested <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir,
-                                                               class='Gibbons',
-                                                               model.type = "binary", Thresh.val = 0)
-
-PerformanceOutputBalancedCrested$f1_plot
-PerformanceOutputBalancedCrested$pr_plot
-PerformanceOutputBalancedCrested$FPRTPR_plot
 
 
