@@ -1,0 +1,7 @@
+Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	Probability	Detections	Class
+1	Spectrogram 1	1	2479	2491	100	3000	0.98	R1058_WA_20220914_050002.wav_2479	CrestedGibbon
+2	Spectrogram 1	1	2509	2521	100	3000	0.96	R1058_WA_20220914_050002.wav_2509	CrestedGibbon
+3	Spectrogram 1	1	2941	2953	100	3000	0.9	R1058_WA_20220914_050002.wav_2941	CrestedGibbon
+4	Spectrogram 1	1	3121	3133	100	3000	0.96	R1058_WA_20220914_050002.wav_3121	CrestedGibbon
+5	Spectrogram 1	1	3199	3211	100	3000	0.98	R1058_WA_20220914_050002.wav_3199	CrestedGibbon
+6	Spectrogram 1	1	3247	3259	100	3000	0.99	R1058_WA_20220914_050002.wav_3247	CrestedGibbon

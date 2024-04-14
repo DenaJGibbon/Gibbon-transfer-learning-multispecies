@@ -3,18 +3,19 @@ library(ggplot2)
 library(sp)
 library(gstat)
 library(stringr)
+library(matlab)
 
 setwd("/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies")
 
 # Danum Valley ------------------------------------------------------------
 
-TempImagesDanum <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DeploymentOutputV2/Danum/ImagesOver90/TP/')
+TempImagesDanum <- list.files('data/calldensityplots/Danum//ImagesOver90/TP/')
 TempImagesDanum <- str_split_fixed(TempImagesDanum,pattern = '_',n=4)
 recorder <- TempImagesDanum[,2]
 date <- TempImagesDanum[,3]
 DanumTimingDF <- cbind.data.frame(recorder,date)
 
-TempDanumFiles <-list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DeploymentOutputV2/Danum/Selections/')
+TempDanumFiles <-list.files('data/calldensityplots/Danum//Selections/')
 TempDanumFiles <-str_split_fixed(TempDanumFiles,pattern = '-__',n=2)[,2]
 TempDanumFiles <-str_split_fixed(TempDanumFiles,pattern = '_',n=2)[,1]
 
@@ -77,13 +78,13 @@ Danum.call.density.plot
 
 # Jahoo  ------------------------------------------------------------
 
-TempImagesJahoo <- list.files("/Volumes/DJC Files/MultiSpeciesTransferLearning/DeploymentOutputV2/KSWS/Images/TP")
+TempImagesJahoo <- list.files("data/calldensityplots/Jahoo//Images/TP")
 TempImagesJahoo <- str_split_fixed(TempImagesJahoo,pattern = '_',n=5)
 recorder <- TempImagesJahoo[,2]
 date <- TempImagesJahoo[,4]
 JahooTimingDF <- cbind.data.frame(recorder,date)
 
-TempJahooFiles <-list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DeploymentOutputV2/KSWS/Selections/')
+TempJahooFiles <-list.files('data/calldensityplots/Jahoo//Selections/')
 TempJahooFiles <-str_split_fixed(TempJahooFiles,pattern = '-__',n=2)[,2]
 TempJahooFiles <-str_split_fixed(TempJahooFiles,pattern = '_',n=2)[,1]
 
@@ -142,7 +143,7 @@ Jahoo.call.density.plot <-
 
 Jahoo.call.density.plot
 
-pdf(file='CallDensityPlot.pdf', height =12, width=10)
+pdf(file='data/calldensityplots/CallDensityPlot.pdf', height =12, width=10)
 cowplot::plot_grid(Danum.call.density.plot,
                    Jahoo.call.density.plot,nrow=2)
 graphics.off()
@@ -151,8 +152,8 @@ graphics.off()
 
 # Calculate precision -----------------------------------------------------
 
-TruePositives <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DeploymentOutputV2/KSWS/Images/TP')
-FalsePositives <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DeploymentOutputV2/KSWS/Images/FP')
+TruePositives <- list.files('data/calldensityplots/Jahoo//Images/TP')
+FalsePositives <- list.files('data/calldensityplots/Jahoo//Images/FP')
 
 TempTP <- str_split_fixed(TruePositives,pattern = '.wav',n=2)[,2]
 TempTPProb <- str_split_fixed(TempTP,pattern = '_',n=4)[,3]
@@ -164,8 +165,8 @@ TempFPProb <- str_split_fixed(TempFP,pattern = '_',n=4)[,3]
 
 1- length(TempFP)/ (length(TempTP)+length(TempFP))
 
-TruePositives <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DeploymentOutputV2/Danum/ImagesOver90/TP')
-FalsePositives <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DeploymentOutputV2/Danum/ImagesOver90/FP')
+TruePositives <- list.files('data/calldensityplots/Danum//ImagesOver90/TP')
+FalsePositives <- list.files('data/calldensityplots/Danum//ImagesOver90/FP')
 
 TempTP <- str_split_fixed(TruePositives,pattern = '.wav',n=2)[,2]
 TempTPProb <- str_split_fixed(TempTP,pattern = '_',n=4)[,3]

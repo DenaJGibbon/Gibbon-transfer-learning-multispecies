@@ -1,0 +1,6 @@
+Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	Probability	Detections	Class
+1	Spectrogram 1	1	13	25	100	2000	0.77	S18_20180221_060002.wav_13	GreyGibbon
+2	Spectrogram 1	1	529	541	100	2000	0.85	S18_20180221_060002.wav_529	GreyGibbon
+1	Spectrogram 1	1	2155	2167	100	2000	0.67	S18_20180221_060002.wav_2155	GreyGibbon
+2	Spectrogram 1	1	2293	2305	100	2000	0.8	S18_20180221_060002.wav_2293	GreyGibbon
+3	Spectrogram 1	1	2365	2377	100	2000	0.95	S18_20180221_060002.wav_2365	GreyGibbon
