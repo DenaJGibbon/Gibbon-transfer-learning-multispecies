@@ -195,8 +195,8 @@ CombinedDFTestFlextable
 
 
 
-# flextable::save_as_docx(CombinedDFTestFlextable,
-#                         path='Table 2 Performance on test data.docx')
+flextable::save_as_docx(CombinedDFTestFlextable,
+                        path='tables/Table 4 Performance on test data.docx')
 
 
 # -------------------------------------------------------------------------

@@ -3,7 +3,7 @@ devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
 setwd("/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies")
 
 # Define paths and parameters for binary classification
-ModelPath <- 'model_output/_imagescambodia_binary_unfrozen_TRUE_/_imagescambodia_3_vgg19_model.pt'
+ModelPath <- 'model_output/_imagescambodia_binary_unfrozen_TRUE_/_imagescambodia_5_resnet50_model.pt'
 SoundFileDir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/SoundFiles/'
 
 # Deploy CNN for binary classification
@@ -11,9 +11,9 @@ deploy_CNN_binary(
   clip_duration = 12,
   max_freq_khz = 3,
   architecture='resnet', # Change manually
-  output_folder = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRoutput3vgg19/Images/',
-  output_folder_selections = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRoutput3vgg19/Selections/',
-  output_folder_wav = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRoutput3vgg19/Wavs/',
+  output_folder = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRoutputFinal/Images/',
+  output_folder_selections = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRoutputFinal/Selections/',
+  output_folder_wav = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRoutputFinal/Wavs/',
   detect_pattern=NA,# c('_050','_060'), 
   top_model_path = ModelPath,
   path_to_files = SoundFileDir,
@@ -32,9 +32,9 @@ deploy_CNN_binary(
   clip_duration = 12,
   max_freq_khz = 2,
   architecture='vgg19', # Change manually
-  output_folder = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutputV2/Images/',
-  output_folder_selections = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutputV2/Selections/',
-  output_folder_wav = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutputV2/Wavs/',
+  output_folder = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutputFinal/Images/',
+  output_folder_selections = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutputFinal/Selections/',
+  output_folder_wav = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutputFinal/Wavs/',
   detect_pattern=NA,
   top_model_path = TopModelBinary,
   path_to_files = DanumSoundFiles,
@@ -45,16 +45,16 @@ deploy_CNN_binary(
 )
 
 # Define paths and parameters for multi-class classification
-TopModelMulti <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/top_models/combined_multi/_imagesmulti_5_vgg19_model.pt'
+TopModelMulti <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/model_output/top_models/combined_multi/_imagesmulti_3_resnet50_model.pt'
 DanumSoundFiles <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/SoundFiles/'
 
 # Deploy CNN for multi-class classification
 deploy_CNN_multi(
   clip_duration = 12,
   architecture='resnet50',
-  output_folder = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley//gibbonNetRMultiV2Resnet/Images/',
-  output_folder_selections = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley//gibbonNetRMultiV2Resnet/Selections/',
-  output_folder_wav = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley//gibbonNetRMultiV2Resnet/Wavs',
+  output_folder = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley//gibbonNetRMultiFinal/Images/',
+  output_folder_selections = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley//gibbonNetRMultiFinal/Selections/',
+  output_folder_wav = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley//gibbonNetRMultiFinal/Wavs',
   #detect_pattern= 'NA',
   top_model_path = TopModelMulti,
   path_to_files = DanumSoundFiles,
@@ -75,9 +75,9 @@ deploy_CNN_multi(
   clip_duration = 12,
   max_freq_khz = 3,
   architecture='resnet50',
-  output_folder = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRMultiV2/Images/',
-  output_folder_selections = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo//gibbonNetRMultiV2/Selections/',
-  output_folder_wav = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo//gibbonNetRMultiV2/Wavs',
+  output_folder = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRMultiFinal/Images/',
+  output_folder_selections = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo//gibbonNetRMultiFinal/Selections/',
+  output_folder_wav = '/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo//gibbonNetRMultiFinal/Wavs',
   #detect_pattern= 'NA',
   top_model_path = TopModelMulti,
   path_to_files = JahooSoundFiles,

@@ -11,7 +11,7 @@ library(ggplot2)
 # KSWS Performance Binary --------------------------------------------------------
 
 # Get a list of TopModel result files
-TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRoutputV2/Selections/',
+TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRoutputFinal/Selections/',
                              full.names = TRUE)
 
 # Get a list of annotation selection table files
@@ -202,7 +202,7 @@ CrestedGibbonBinaryPlot
 
 # Danum Binary --------------------------------------------------
 # Get a list of TopModel result files
-TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutputV2/Selections/',
+TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRoutputFinal/Selections/',
                               full.names = TRUE)
 
 # Get a list of annotation selection table files
@@ -396,7 +396,7 @@ GreyGibbonBinaryPlot
 # KSWS Performance --------------------------------------------------------
 
 # Get a list of TopModel result files
-TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRMultiV2/Selections/',
+TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/gibbonNetRMultiFinal/Selections/',
                               full.names = TRUE)
 
 # Get a list of annotation selection table files
@@ -589,7 +589,7 @@ CrestedGibbonMultiPlot
 # Danum Multi --------------------------------------------------------
 
 # Get a list of TopModel result files
-TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRMultiV2Resnet/Selections/',
+TopModelresults <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/DanumValley/gibbonNetRMultiFinal/Selections/',
                               full.names = TRUE)
 
 # Get a list of annotation selection table files
@@ -810,7 +810,7 @@ CombinedPerformance <- CombinedPerformance[,c("Species","Architecture", "F1", "P
 CombinedPerformanceFlex <- flextable::flextable(CombinedPerformance)
 CombinedPerformanceFlex
 
-#flextable::save_as_docx(CombinedPerformanceFlex,path='tables/Table 4. Performance.docx')
+flextable::save_as_docx(CombinedPerformanceFlex,path='tables/Table 4. Performance.docx')
 
 
 
