@@ -2,7 +2,7 @@
 library(dplyr)
 library(flextable)
 library(dplyr)
-devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
+library(gibbonNetR)
 
 # Optional setwd
 setwd("/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies")
@@ -337,7 +337,7 @@ trainingfolder.short <- 'imagesmulti'
 unfreeze.param.param <- TRUE # FALSE means the features are frozen; TRUE unfrozen
 
 # Number of epochs to include
-epoch.iterations <- c(1,2,3,4,5,20)
+epoch.iterations <- c(1)
 
 # Allow early stopping?
 early.stop <- 'yes'
