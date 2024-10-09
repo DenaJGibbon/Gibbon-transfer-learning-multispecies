@@ -71,7 +71,7 @@ for (a in 1:length(JahooTrainFiles)) {
 
 # Create spectrogram images -----------------------------------------------
 
-SoundFiles <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/DanumClipsSorted_AugmentedCropping',
+SoundFiles <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/JahooClipsSorted_AugmentedNoise',
                               full.names = TRUE,recursive = T)
 
 OutputDir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/'
@@ -101,9 +101,47 @@ for(y in 1:length(SoundFiles)){
   jpeg(paste(subset.directory, '/', wav.rm,'.jpg',sep=''),res = 50)
   temp.name <- SoundFiles[y]
   short.wav <-readWave(temp.name)
-  short.wav <- downsample(short.wav, 16000)
-  seewave::spectro(short.wav,tlab='',flab='',axisX=F,axisY = F,flim=c(0.4,2),scale=F,grid=F,noisereduction=1)
+  #short.wav <- downsample(short.wav, 16000)
+  seewave::spectro(short.wav,tlab='',flab='',axisX=F,axisY = F,flim=c(0.4,3),scale=F,grid=F,noisereduction=1)
   graphics.off()
   
 }
 
+
+# Create spectrogram images test data -----------------------------------------------
+
+SoundFiles <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/WideArrayEvaluation/Jahoo/ClipsManual/',
+                         full.names = TRUE,recursive = T)
+
+OutputDir <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/testimages/images_jahoo_WA/test/'
+
+for(y in 1:length(SoundFiles)){
+  
+  SoundFilePath <- SoundFiles[y]
+  SoundFilesShort <- basename(SoundFilePath)
+  DirName <- str_split_fixed(SoundFilePath,pattern = 'ClipsManual/',n=2)[,2]
+  # DirNameShort <- str_split_fixed(DirName,pattern = '/',n=2)[,1]
+  # UpdatedDirName <- paste(DirNameShort, str_split_fixed(DirName,pattern = '/',n=3)[,2],'/',sep='/')
+  # 
+  Folder <- str_split_fixed(DirName,pattern = '/',n=3)[,2]
+  
+  subset.directory <- paste(OutputDir,Folder,sep='')
+  
+  if (!dir.exists(subset.directory)){
+    dir.create(subset.directory,recursive = T)
+    print(paste('Created output dir',subset.directory))
+  } else {
+    print(paste(subset.directory,'already exists'))
+  }
+  
+  
+  
+  wav.rm <- str_split_fixed(SoundFilesShort,pattern='.wav',n=2)[,1]
+  jpeg(paste(subset.directory, '/', wav.rm,'.jpg',sep=''),res = 50)
+  temp.name <- SoundFiles[y]
+  short.wav <-readWave(temp.name)
+  #short.wav <- downsample(short.wav, 16000)
+  seewave::spectro(short.wav,tlab='',flab='',axisX=F,axisY = F,flim=c(0.4,3),scale=F,grid=F,noisereduction=1)
+  graphics.off()
+  
+}
